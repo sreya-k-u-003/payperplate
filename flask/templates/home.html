@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>PAY PER PLATE</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/ppp.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+ <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Yummy
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>PAY PER PLATE<span>.</span></h1>
+      </a>
+
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#why-us">About</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#" id="orderHistoryLink" onclick="goToHistory()">Order History</a></li>
+
+
+           <li><a href="#" onclick="goToWallet()">View Wallet</a></li>
+
+
+          
+          
+        </ul>
+      </nav><!-- .navbar -->
+
+      <a class="btn-book-a-table" href="#" onclick="orderFood()">ORDER FOOD NOW</a>
+      <a class="btn-book-a-table" href="{{url_for('logout')}}">LOG OUT</a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center section-bg">
+    <div class="container">
+      <div class="row justify-content-between gy-5">
+        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+          <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food from <br> MITS CANTEEN</h2>
+          <p data-aos="fade-up" data-aos-delay="100">EatSmart: Pay for Your Plate, Dorm Delights Await!</p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+           <a class="btn-book-a-table"  href="#" onclick="orderFood()">ORDER</a>
+
+            
+            
+          </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+          <img src="{{ url_for('static', filename='img/hero-img.png') }}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+
+         </div>
+      </div> <br><br>
+    </div>
+    <br><br><br><br>
+  </section><!-- End Hero Section -->
+
+  <main id="main">
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-box">
+              <h3>Why Choose Pay Per Plate?</h3>
+              <p>
+                Introducing PayPerPlate: an integrated platform for hostel residents, revolutionizing the college dining experience. Offering affordable, personalized meal plans with an intuitive interface, group ordering, and transparent billing, it enhances convenience. Collaborating with the college canteen, PayPerPlate provides a digital, cost-effective solution for students' culinary needs.
+              </p>
+             <br>
+            </div>
+          </div><!-- End Why Box -->
+
+          <div class="col-lg-8 d-flex align-items-center">
+            <div class="row gy-4">
+
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-clipboard-data"></i>
+                  <h4>Easy To Order</h4>
+                  <p>PayPerPlate ensures transparent pricing, displaying detailed meal costs and discounts. Empowering students, this transparency aids informed decisions, helping them manage food expenses within budget</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-gem"></i>
+                  <h4>Clear Costs</h4>
+                  <p>PayPerPlate ensures transparent pricing, displaying detailed meal costs and discounts. Empowering students, this transparency aids informed decisions, helping them manage food expenses within budget</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
+                  <i class="bi bi-inboxes"></i>
+                  <h4>Efficient Pay Per Plate System</h4>
+                  <p>This distinctive feature ensures that students no longer bear the burden of fixed meal costs, aligning with the diverse eating habits and preferences of hostel life. </p>
+                </div>
+              </div><!-- End Icon Box -->
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    
+
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Our Menu</h2>
+          <p>Check Our <span> Menu</span></p>
+        </div>
+
+        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+
+          
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
+              <h4>Breakfast</h4>
+            </a><!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
+              <h4>Lunch</h4>
+            </a>
+          </li><!-- End tab nav item -->
+
+          
+        </ul>
+
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+
+          
+
+          <div class="tab-pane fade" id="menu-breakfast">
+
+            <div class="tab-header text-center">
+              <p>Menu</p>
+              <h3>Breakfast</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/appam.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/appam.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Appam and Veg Curry</h4>
+                
+                <p class="price">
+                  Rs. 40
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/chap.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/chap.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Chappathi and Chicken Curry</h4>
+                
+                <p class="price">
+                  Rs. 60
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/tea.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/tea.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Tea</h4>
+                
+                <p class="price">
+                  Rs. 15
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/coffee.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/coffee.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                <h4>Coffee</h4>
+                
+                <p class="price">
+                  Rs.15
+                </p>
+              </div><!-- Menu Item -->
+
+              
+
+            </div>
+          </div><!-- End Breakfast Menu Content -->
+
+          <div class="tab-pane fade" id="menu-lunch">
+
+            <div class="tab-header text-center">
+              <p>Menu</p>
+              <h3>Lunch</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/biriyani.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/biriyani.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Biriyani</h4>
+               
+                <p class="price">
+                  Rs. 100
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/meals.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/meals.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Meals</h4>
+                
+                <p class="price">
+                  Rs. 45
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/chap.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/chap.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                 <h4>Chappathi and Chicken Curry</h4>
+                
+                <p class="price">
+                  Rs. 60
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="{{ url_for('static', filename='img/lime.png') }}" class="glightbox">
+    <img src="{{ url_for('static', filename='img/lime.png') }}" class="menu-img img-fluid" alt="">
+</a>
+
+                <h4>Fresh Lime</h4>
+                
+                <p class="price">
+                  Rs. 20
+                </p>
+              </div><!-- Menu Item -->
+
+              
+
+            </div>
+          </div><!-- End Lunch Menu Content -->
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Menu Section -->
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+ <span id="username" style="display: none;">{{ username }}</span>
+    
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+
+<!-- Template Main JS File -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script>
+
+  function orderFood() {
+    // Get the username from the hidden span
+    const username = document.getElementById('username').innerText;
+
+    // Redirect to the food page with the username as a query parameter
+    window.location.href = `/food?username=${username}`;
+  }
+
+    function goToHistory() {
+        // Get the username from the hidden span
+        const username = document.getElementById('username').innerText;
+
+        // Generate the URL for the 'history' route with the username as a query parameter
+        const historyUrl = "{{ url_for('history', username=username) }}";
+
+        // Redirect to the history page
+        window.location.href = historyUrl;
+    }
+     function goToWallet() {
+        // Get the username from the hidden span
+        const username = document.getElementById('username').innerText;
+
+        // Generate the URL for the 'wallet_amount' route with the username as a query parameter
+        const walletUrl = "{{ url_for('wallet_amount') }}?username=" + encodeURIComponent(username);
+
+        // Redirect to the wallet_amount page
+        window.location.href = walletUrl;
+    }
+
+
+</script>
+  </main>
+</body>
+
+</html>

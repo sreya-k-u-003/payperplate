@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order History</title>
+  <style>
+    body {
+      background-color: #fde2e4; /* light pink background */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    h3{
+    
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-family: var(--font-secondary);
+  color: #744548;
+}
+    
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: hwb(356 56% 11%) /* light pink header background */
+    }
+
+    tr:hover {
+      background-color: #f6d5d5; /* light coral background on hover */
+    }
+  </style>
+</head>
+<body>
+   <h3>PAY PER PLATE</h3>
+   <button onclick="Home()">BACK</button>
+    <span id="username" style="display: none;">{{ username }}</span>
+
+
+<br>
+  <h1>Food Order History</h1>
+{% if selected_items %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Item Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in selected_items %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[0].strftime('%m-%d-%Y') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No selected items.</p>
+{% endif %}
+<script>
+      function Home() {
+
+    const username = document.getElementById('username').innerText;
+
+
+    window.location.href = `/home?username=${username}`;
+  }
+
+</script>
+</body>
+
+</html>

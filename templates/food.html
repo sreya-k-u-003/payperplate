@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Selection</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec; /* Light pink background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #food-selection {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #e91e63; /* Pink heading color */
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            color: brown;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #add-dish {
+            background-color: #4caf50; /* Green */
+            color: white;
+        }
+
+        #clear-selection {
+            background-color: #ff6f61; /* Coral */
+            color: rgb(238, 237, 237);
+        }
+
+        #total-amount {
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #selected-dishes {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<span class="user-balance" data-user-balance="Rs {{balance}}"></span>
+<span id="user_name" data-user-name="{{username}}"></span>
+
+ <div id="food-selection">
+        <h2>Order your Food</h2>
+
+    <form method="" action="" id="food-order-form">
+        <input type="hidden" name="username" value="{{ username }}">
+
+        <br>
+
+        <label for="food">Select Food:</label>
+
+        <select id="food" name="menu_item">
+            <option value="0" disabled selected>Select Food</option>
+            {% for item_id, item_name, item_price in menu_items %}
+                <option value="{{ item_id }}" data-item-name="{{item_name}}" data-item-id="{{ item_id }}" data-price="{{ item_price }}">{{ item_name }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="buttons">
+            <button type="button" id="add-dish" >Add Dish</button>
+            <button type="button" id="clear-selection" >Clear Selection</button>
+        </div>
+
+        <div id="selected-dishes"></div>
+
+        <div id="total-amount">
+            Total Amount: Rs <span id="total-amount-value">0</span>
+            <input type="hidden" name="total_amount" id="total-amount-input" value="0">
+        </div>
+
+        <div id="buttons">
+            <button type="button" id="proceed-to-pay" >Proceed to Pay</button>
+           <a href="{{ url_for('wallet_amount', username=username) }}">
+  <button type="button" id="view-wallet">View Wallet</button>
+</a>
+              <button type="submit" value="save" id="save-button" disabled>SAVE</button>
+
+            <a href="{{ url_for('home', username=username) }}"><button type="button">Home</button></a>
+
+        </div>
+    </form>
+ </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let selectedDishes = [];
+
+
+            function addDish() {
+                const foodSelect = document.getElementById('food');
+                const selectedDishesElement = document.getElementById('selected-dishes');
+
+                const selectedOption = foodSelect.options[foodSelect.selectedIndex];
+                const item_id = selectedOption.getAttribute('data-item-id');
+                const item_name = selectedOption.getAttribute('data-item-name');
+                const price = parseInt(selectedOption.getAttribute('data-price'), 10);
+
+                if (price > 0) {
+                    const selectedItem = {
+                        item_id: item_id,
+                        item_name: item_name,
+                        price: price
+                    };
+
+                    selectedDishes.push(selectedItem);
+
+                    renderSelectedDishes(selectedDishesElement);
+                    calculateTotal();
+                }
+            }
+
+            function renderSelectedDishes(element) {
+                element.innerHTML = '<strong>Selected Dishes:</strong>';
+                selectedDishes.forEach(dish => {
+                    const dishItem = document.createElement('div');
+                    dishItem.textContent = `${dish.item_name} - Rs ${dish.price.toFixed(2)}`;
+                    element.appendChild(dishItem);
+                });
+            }
+
+            function calculateTotal() {
+                const totalAmountElement = document.getElementById('total-amount-value');
+                const totalAmountInput = document.getElementById('total-amount-input');
+
+                const totalAmount = selectedDishes.reduce((total, dish) => total + dish.price, 0);
+                totalAmountElement.textContent = totalAmount.toFixed(2);
+                totalAmountInput.value = totalAmount.toFixed(2);
+            }
+
+            function clearSelection() {
+                selectedDishes = [];
+                const selectedDishesElement = document.getElementById('selected-dishes');
+                selectedDishesElement.innerHTML = '';
+                calculateTotal();
+            }
+
+            function proceedToPay() {
+                console.log('Fetching...');
+
+                // Calculate the total amount
+                const totalAmount = selectedDishes.reduce((total, dish) => total + dish.price, 0);
+                console.log(totalAmount);
+
+                const userBalanceElement = document.querySelector('.user-balance');
+                const balanceString = userBalanceElement.getAttribute('data-user-balance');
+                const balanceMatch = balanceString.match(/\d+/); // Extract numeric part
+                const userBalance = parseInt(balanceMatch, 10);
+
+                console.log(userBalance);
+
+                // Fetch username from the rendered HTML
+                const usernameElement = document.getElementById('user_name');
+                const username = usernameElement.getAttribute('data-user-name');
+
+                console.log(username);
+
+                // Check if the user has sufficient funds
+                if (userBalance >= totalAmount) {
+                    // Send a POST request to the Flask route with the total amount
+                    fetch('/process_payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ totalAmount: totalAmount, username: username }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the response (success or failure)
+                            console.log('Response:', data);
+
+                            if (data.success) {
+                                alert('Payment successful!');
+                                // Enable the save button
+                                document.getElementById('save-button').disabled = false;
+                            } else {
+                                alert('Payment failed. Insufficient funds.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error processing payment.');
+                        });
+                } else {
+                    alert('Insufficient funds. Payment not possible.');
+                }
+            } function saveOrder() {
+            console.log('Saving order...');
+
+            fetch('/food', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: '{{ username }}',
+                   total_amount: parseInt(document.getElementById('total-amount-input').value, 10),
+                    selected_dishes: selectedDishes,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Save Response:', data);
+
+                    if (data.success) {
+                        alert('Order saved successfully!');
+                    } else {
+                        alert('Error saving order: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving order.');
+                });
+        }
+
+        // Attach click event to the save button
+        document.getElementById('save-button').addEventListener('click', saveOrder);
+
+            document.getElementById('add-dish').addEventListener('click', addDish);
+        document.getElementById('clear-selection').addEventListener('click', clearSelection);
+        document.getElementById('proceed-to-pay').addEventListener('click', proceedToPay);
+
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order History</title>
+  <style>
+    body {
+      background-color: #fde2e4; /* light pink background */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    h3{
+    
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-family: var(--font-secondary);
+  color: #744548;
+}
+    
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: hwb(356 56% 11%) /* light pink header background */
+    }
+
+    tr:hover {
+      background-color: #f6d5d5; /* light coral background on hover */
+    }
+
+   button {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    transition: 0.5s;
+    color: #fff;
+    background:#ce1212;
+    
+    
+    }
+    button:hover{
+      color: #fff;
+      background: rgba(221, 40, 40, 0.8);
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.9); /* semi-transparent white background */
+      transition: all 0.5s;
+      z-index: 997;
+      height: 70px; /* adjusted height */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left:0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }  
+    header h1 span {
+      color: red; /* set the color of the dot to red */
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+        <h1>PAY PER PLATE<span>.</span></h1>
+  </header>
+  <br><br><br><br><br><br>
+   <button onclick="Home()">Home</button>
+    <span id="username" style="display: none;">{{ username }}</span>
+
+
+<br>
+  <h1>Food Order History</h1>
+{% if selected_items %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Item Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in selected_items %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[0].strftime('%m-%d-%Y') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No selected items.</p>
+{% endif %}
+<script>
+      function Home() {
+
+    const username = document.getElementById('username').innerText;
+
+
+    window.location.href = `/home?username=${username}`;
+  }
+
+</script>
+</body>
+
+</html>
